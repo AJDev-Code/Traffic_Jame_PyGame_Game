@@ -12,7 +12,7 @@ pygame.mixer.music.play(-1)
 WIDTH = 600
 HEIGHT = 800
 
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
+screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.RESIZABLE | pygame.SCALED)
 pygame.display.set_caption("Traffic Jam")
 font = "font.ttf"
 font2 = pygame.font.Font("font.ttf", 80)
