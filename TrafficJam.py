@@ -4,9 +4,11 @@ import random
 import pickle
 import os
 
+os.chdir(os.path.dirname(__file__))
+
 pygame.init()
 pygame.mixer.init()
-pygame.mixer.music.load("music.mp3")
+pygame.mixer.music.load("./music.mp3")
 pygame.mixer.music.play(-1)
 
 WIDTH = 600
@@ -15,13 +17,13 @@ HEIGHT = 800
 screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.RESIZABLE | pygame.SCALED)
 pygame.display.set_caption("Traffic Jam")
 font = "font.ttf"
-font2 = pygame.font.Font("font.ttf", 80)
+font2 = pygame.font.Font("./font.ttf", 80)
 
 class Player(pygame.sprite.Sprite):
   def __init__(self, x, y, enemies):
     pygame.sprite.Sprite.__init__(self)
     
-    self.image = pygame.transform.scale(pygame.image.load(os.path.abspath("Images/player.png")), (84, 84))
+    self.image = pygame.transform.scale(pygame.image.load("Images/player.png"), (84, 84))
     self.rect = self.image.get_rect()
     self.rect.x = x
     self.rect.y = y
@@ -53,7 +55,7 @@ class Player(pygame.sprite.Sprite):
 class Enemy(pygame.sprite.Sprite):
   def __init__(self):
     pygame.sprite.Sprite.__init__(self)
-    self.image = pygame.transform.scale(pygame.image.load(random.choice([os.path.abspath("Images/obstacle0.png"), os.path.abspath("Images/obstacle1.png"), os.path.abspath("Images/obstacle2.png"), os.path.abspath("Images/obstacle3.png")])), (84, 84))
+    self.image = pygame.transform.scale(pygame.image.load(random.choice(["Images/obstacle0.png", "Images/obstacle1.png", "Images/obstacle2.png", "Images/obstacle3.png"])), (84, 84))
     self.rect = self.image.get_rect()
     self.rect.x = random.randint(98, 418)
     self.rect.y = random.randint(-110, -50)
@@ -67,16 +69,16 @@ class Enemy(pygame.sprite.Sprite):
     else:
       self.rect.y = random.randint(-70, -50)
       self.rect.x = random.randint(98, 418)
-      self.image = pygame.transform.scale(pygame.image.load(random.choice([os.path.abspath("Images/obstacle0.png"), os.path.abspath("Images/obstacle1.png"), os.path.abspath("Images/obstacle2.png"), os.path.abspath("Images/obstacle3.png")])), (84, 84))
+      self.image = pygame.transform.scale(pygame.image.load(random.choice(["Images/obstacle0.png", "Images/obstacle1.png", "Images/obstacle2.png", "Images/obstacle3.png"])), (84, 84))
 
 
 class Background(pygame.sprite.Sprite):
   def __init__(self):
     pygame.sprite.Sprite.__init__(self)
     self.images = []
-    images = [os.path.abspath("Images/road0.png"), os.path.abspath("Images/road1.png"), os.path.abspath("Images/road2.png"), os.path.abspath("Images/road0.png")]
-    for image in images:
-      self.images.append(pygame.transform.scale(pygame.image.load(image), (WIDTH, HEIGHT)))
+    self.paths = ["Images/road0.png", "Images/road1.png", "Images/road2.png", "Images/road0.png"]
+    for image in self.paths:
+        self.images.append(pygame.transform.scale(pygame.image.load(image), (WIDTH, HEIGHT)))
        
     self.index = 0
 
